@@ -14,9 +14,15 @@
 
     Github: https://github.com/csatswo/Export-MsolGroupMembers.ps1
  
-.EXAMPLE 
+.EXAMPLE
     
     .\Export-MsolGroupMembers.ps1 -Path C:\Temp\members.csv -Filter "*sales*"
+    This will export all groups with "sales" somewhere in the name
+
+.EXAMPLE
+
+    .\Export-MsolGroupMembers.ps1 -Path C:\Temp\members.csv -Filter "**"
+    This will export all groups
 
 #>
 
