@@ -9,3 +9,11 @@ Example 2: This will export all distribution groups
 ```
    .\Export-MsolGroupMembers.ps1 -Path C:\Temp\members.csv -Filter "**"
 ```
+
+The script will output the results to the terminal:
+
+![](./images/example_terminal.png)
+
+And the script will export to a CSV:
+
+![](./images/example_csv.png)
