@@ -59,9 +59,10 @@ foreach ($group in $groups) {
     $members = Get-MsolGroupMember -GroupObjectId $groupId
     foreach ($member in $members) {
         $memberName = $member.DisplayName
+        $memberNameQuotes = "`"$memberName`""
         $memberEmail = $member.EmailAddress
-        Write-Host ($groupName, $memberName, $memberEmail) -Separator ","
-        Add-Content -Path $path -Value "$groupName,$memberName,$memberEmail"
+        Write-Host ($groupName,$memberNameQuotes,$memberEmail) -Separator ","
+        Add-Content -Path $path -Value "$groupName,$memberNameQuotes,$memberEmail"
         }
     }
 
