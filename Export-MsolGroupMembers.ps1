@@ -49,7 +49,7 @@ if (Get-Module -ListAvailable -Name MSOnline) {
 
 # Connect to MSOnline
 
-Import-Module MicrosoftTeams
+Import-Module MSOnline
 Connect-MsolService
 Add-Content -Path $path -Value "GroupName,MemberName,MemberEmailAddress"
 $groups = Get-MsolGroup -All | Where-Object {$_.DisplayName -like $filter}
