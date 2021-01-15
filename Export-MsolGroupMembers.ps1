@@ -16,8 +16,13 @@
  
 .EXAMPLE
     
-    .\Export-MsolGroupMembers.ps1 -Path C:\Temp\members.csv -Filter "*sales*"
-    This will export all groups with "sales" somewhere in the name
+    .\Export-MsolGroupMembers.ps1 -Path C:\Temp\members.csv -Filter *sales*
+    This will export all groups with 'sales' somewhere in the name
+
+.EXAMPLE
+    
+    .\Export-MsolGroupMembers.ps1 -Path C:\Temp\members.csv -Filter Project*
+    This will export all groups where the name starts with 'project'
 
 .EXAMPLE
 
@@ -56,9 +61,24 @@ if (Get-Module -ListAvailable -Name MSOnline) {
 # Connect to MSOnline
 
 Import-Module MSOnline
-Connect-MsolService
+
+function MSOLConnected {
+    
+    Get-MsolDomain -ErrorAction SilentlyContinue | Out-Null
+    $result = $?
+    return $result
+
+}
+
+if (-not (MSOLConnected)) {
+    
+    Write-Host "Connecting to MSOnline..." -ForegroundColor Yellow
+    Connect-MsolService
+
+}
+
 Add-Content -Path $path -Value "GroupName,MemberName,MemberEmailAddress"
-$groups = Get-MsolGroup -All | Where-Object {$_.DisplayName -like $filter}
+$groups = Get-MsolGroup -All | Where-Object {$_.DisplayName -like "$filter"}
 foreach ($group in $groups) {
     $groupId = $group.ObjectId
     $groupName = $group.DisplayName
